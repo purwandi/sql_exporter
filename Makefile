@@ -46,4 +46,11 @@ docker:
 	@echo ">> building docker image"
 	@docker build -t "$(DOCKER_IMAGE_NAME):$(DOCKER_IMAGE_TAG)" .
 
+release:
+	rm -rf build
+	GOOS=darwin 	GOARCH=arm64	go build -o build/darwin-arm64/sql-exporter .
+	GOOS=darwin 	GOARCH=amd64 	go build -o build/darwin-amd64/sql-exporter .
+	GOOS=linux  	GOARCH=amd64	go build -o build/linux-amd64/sql-exporter .
+	GOOS=windows 	GOARCH=amd64 	go build -o build/windows-amd64/sql-exporter .
+
 .PHONY: all style format build test vet docker

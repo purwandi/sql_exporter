@@ -12,6 +12,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/prometheus/common/version"
+	"github.com/prometheus/exporter-toolkit/web"
 )
 
 func init() {
@@ -23,6 +24,7 @@ func main() {
 		showVersion   = flag.Bool("version", false, "Print version information.")
 		listenAddress = flag.String("web.listen-address", ":9237", "Address to listen on for web interface and telemetry.")
 		metricsPath   = flag.String("web.telemetry-path", "/metrics", "Path under which to expose metrics.")
+		tlsConfigFile = flag.String("web.config.file", "", "path to YAML web config file")
 		configFile    = flag.String("config.file", os.Getenv("CONFIG"), "SQL Exporter configuration file name.")
 	)
 
@@ -77,7 +79,8 @@ func main() {
 	})
 
 	level.Info(logger).Log("msg", "Listening", "listenAddress", *listenAddress)
-	if err := http.ListenAndServe(*listenAddress, nil); err != nil {
+	server := &http.Server{Addr: *listenAddress}
+	if err := web.ListenAndServe(server, *tlsConfigFile, logger); err != nil {
 		level.Error(logger).Log("msg", "Error starting HTTP server:", "err", err)
 		os.Exit(1)
 	}
