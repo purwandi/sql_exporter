@@ -8,6 +8,10 @@ builds:
     env:
       - CGO_ENABLED=0
     main: .
+    goarch:
+      - amd64
+      - arm
+      - arm64
     goos:
       - linux
       - windows
