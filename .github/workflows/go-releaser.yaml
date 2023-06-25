@@ -23,11 +23,12 @@ jobs:
 
       - run: go version
 
+      # https://goreleaser.com/static/releases.json
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
         with:
           distribution: goreleaser
-          version: v4.2.0
+          version: v1.17.2
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
