@@ -152,7 +152,8 @@ func (q *Query) updateMetric(conn *connection, res map[string]interface{}, value
 			case []uint8:
 				lv = string(str)
 			default:
-				return nil, fmt.Errorf("column '%s' must be type text (string)", label)
+				lv = fmt.Sprint(str)
+				// return nil, fmt.Errorf("unable to convert '%s' cause data type is : %s", label, fmt.Sprintf("%T", i))
 			}
 		}
 		labels = append(labels, lv)
