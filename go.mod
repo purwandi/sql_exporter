@@ -14,6 +14,8 @@ require (
 	github.com/prometheus/common v0.44.0
 	github.com/prometheus/exporter-toolkit v0.7.3
 	github.com/robfig/cron/v3 v3.0.1
+	github.com/sijms/go-ora/v2 v2.7.17
+	github.com/sirupsen/logrus v1.8.1
 	gopkg.in/yaml.v2 v2.4.0
 )
 
